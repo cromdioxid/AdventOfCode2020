@@ -22,8 +22,8 @@ public class Day10Test {
 	@Test
 	public void test() {
 		Day10 day10 = new Day10();
-		assertEquals(35, day10.solution("inputs/day10/Test1.txt"));
-		assertEquals(220, day10.solution("inputs/day10/Test2.txt"));
+		assertEquals(8, day10.solution("inputs/day10/Test1.txt"));
+		assertEquals(19208, day10.solution("inputs/day10/Test2.txt"));
 	}
 	
 	
