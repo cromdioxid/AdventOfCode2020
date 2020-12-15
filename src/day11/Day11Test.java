@@ -10,7 +10,7 @@ public class Day11Test {
 	@Test
 	public void solution() {
 		Day11 d = new Day11();
-		assertEquals(37, d.solution(file));
+		assertEquals(26, d.solution(file));
 	}
 
 	@Test

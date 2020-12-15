@@ -18,7 +18,7 @@ public class Day11 {
 		while(isDirty) {
 			int[][] r = new int[m.length][m[0].length];
 			isDirty = computeSeatsStatus(m, r);
-			m = r.clone();
+			m = r;
 		}
 		int result = 0;
 		for (int i = 0; i < m.length; i++) {
@@ -63,15 +63,7 @@ public class Day11 {
 			r[i][j] = -1;
 			return false;
 		}
-		Integer[] adjSeats = new Integer[8];
-		adjSeats[0] = (j > 0) ? m[i][j-1] : null;
-		adjSeats[1] = (j < m[0].length - 1) ? m[i][j+1] : null;
-		adjSeats[2] = (i > 0) ? m[i-1][j] : null;
-		adjSeats[3] = (i < m.length - 1) ? m[i+1][j]: null;
-		adjSeats[4] = (i > 0 && j > 0) ? m[i-1][j-1] : null;
-		adjSeats[5] = (i > 0 && j < m[0].length -1) ? m[i-1][j+1] : null;
-		adjSeats[6] = (i < m.length-1 && j > 0) ? m[i+1][j-1] : null;
-		adjSeats[7] = (i < m.length-1 && j < m[0].length-1) ? m[i+1][j+1] : null;
+		Integer[] adjSeats = getAdjSeats(m, i, j);
 		
 		//seat is free
 		if (seat == 0) {
@@ -95,6 +87,68 @@ public class Day11 {
 		return isDirty;
 	}
 	
+	public Integer[] getAdjSeats(int[][] m, int i, int j) {
+		Integer[] seats = new Integer[8];
+		//left
+		int k = j;
+		while(k > 0 && m[i][k-1] == -1) {
+			k--;
+		}
+		seats[0] = (k > 0) ? m[i][k-1] : null;
+		//right
+		k = j;
+		while(k < m[0].length-1 && m[i][k+1] == -1) {
+			k++;
+		}
+		seats[1] = (k < m[0].length - 1) ? m[i][k+1] : null;
+		//up
+		k = i;
+		while(k > 0 && m[k-1][j] == -1) {
+			k--;
+		}
+		seats[2] = (k > 0) ? m[k-1][j] : null;
+		//down
+		k = i;
+		while(k < m.length-1 && m[k+1][j] == -1) {
+			k++;
+		}
+		seats[3] = (k < m.length - 1) ? m[k+1][j]: null;
+		//top left
+		k = i;
+		int l = j;
+		while(k > 0 && l > 0 && m[k-1][l-1] == -1) {
+			k--;
+			l--;
+		}
+		seats[4] = (k > 0 && l > 0) ? m[k-1][l-1] : null;
+		//top right
+		k = i;
+		l = j;
+		while(k > 0 && l < m[0].length-1 && m[k-1][l+1] == -1) {
+			k--;
+			l++;
+		}
+		seats[5] = (k > 0 && l < m[0].length -1) ? m[k-1][l+1] : null;
+		//bottom left
+		k = i;
+		l = j;
+		while(k < m.length-1 && l > 0 && m[k+1][l-1] == -1) {
+			k++;
+			l--;
+		}
+		seats[6] = (k < m.length-1 && l > 0) ? m[k+1][l-1] : null;
+		//bottom right
+		k = i;
+		l = j;
+		while(k < m.length-1 && l < m[0].length-1 && m[k+1][l+1] == -1) {
+			k++;
+			l++;
+		}
+		seats[7] = (k < m.length-1 && l < m[0].length-1) ? m[k+1][l+1] : null;
+		
+		return seats;
+	}
+	
 	public boolean checkOccupiedSeat(int val) {
 		return val == 1;
 	}
@@ -115,6 +169,6 @@ public class Day11 {
 				counter++;
 			}
 		}
-		return (counter >= 4);
+		return (counter >= 5);
 	}
 }
