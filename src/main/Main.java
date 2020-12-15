@@ -1,6 +1,6 @@
 package main;
 
-import day11.Day11;
+import day12.Day12;
 
 /**
  * @author sasa
@@ -9,7 +9,7 @@ import day11.Day11;
 public class Main {
 
 	public static void main(String[] args) {
-		Day11 day = new Day11();
+		Day12 day = new Day12();
 		System.out.println(day.solution());
 	}
 
