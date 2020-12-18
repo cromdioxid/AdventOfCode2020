@@ -14,15 +14,32 @@ public class Day12Test {
 		Day12 d = new Day12();
 		List<Instruction> input = d.processInput(file);
 		Ship ship = new Ship();
-		input.stream().forEach(i -> ship.move(i));
-		assertEquals(-8, ship.getX());
-		assertEquals(17, ship.getY());
+		int i = 0;
+		ship.move(input.get(i));
+		assertEquals(100, ship.getX());
+		assertEquals(10, ship.getY());
+		i++;
+		ship.move(input.get(i));
+		assertEquals(100, ship.getX());
+		assertEquals(10, ship.getY());
+		i++;
+		ship.move(input.get(i));
+		assertEquals(170, ship.getX());
+		assertEquals(38, ship.getY());
+		i++;
+		ship.move(input.get(i));
+		assertEquals(170, ship.getX());
+		assertEquals(38, ship.getY());
+		i++;
+		ship.move(input.get(i));
+		assertEquals(214, ship.getX());
+		assertEquals(-72, ship.getY());
 	}
 	
 	@Test
 	public void test() {
 		Day12 d = new Day12();
-		assertEquals(25, d.solution(file));
+		assertEquals(286, d.solution(file));
 	}
 
 }
