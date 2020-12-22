@@ -11,6 +11,8 @@ import main.ReadFromFile;
 public class Day15 {
 	private static String file = "inputs/day15/input.txt";
 	
+	private int nr = 30000000;
+	
 	private HashMap<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
 	
 	public List<Integer> processInput(String file) {
@@ -22,10 +24,10 @@ public class Day15 {
 	}
 	
 	public int solution() {
-		return solution(file);
+		return solution(file, nr);
 	}
 	
-	public int solution(String file) {
+	public int solution(String file, int nr) {
 		List<Integer> input = processInput(file);
 		int currNumber = 0;
 		int i = 0;
@@ -34,7 +36,7 @@ public class Day15 {
 			addToMap(i, currNumber);
 			i++;
 		}
-		while(i < 2020) {
+		while(i < nr) {
 			List<Integer> currIndices = map.get(currNumber);
 			if (currIndices.size() == 1) {
 				currNumber = 0;
