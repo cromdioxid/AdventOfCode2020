@@ -4,10 +4,12 @@ public class Interval {
 	
 	private int start;
 	private int end;
+	private String name;
 	
-	public Interval(int start, int end) {
+	public Interval(String name, int start, int end) {
 		this.start = start;
 		this.end = end;
+		this.name = name;
 	}
 	
 	public int getStart() {
@@ -18,9 +20,14 @@ public class Interval {
 		return end;
 	}
 	
+	public String getName() {
+		return name;
+	}
+	
 	@Override
 	public boolean equals(Object other) {
 		Interval i = (Interval) other;
-		return this.start == i.start && this.end == i.end;
+		return this.start == i.start && this.end == i.end
+				&& this.name.equals(i.name);
 	}
 }
