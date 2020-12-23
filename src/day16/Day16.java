@@ -22,7 +22,6 @@ public class Day16 {
 	private List<List<Integer>> validTickets = new ArrayList<List<Integer>>();
 	//here I gave up on using too many hashmaps :))
 	private HashMap<Integer, List<String>> labelNameCandidates = new HashMap<Integer, List<String>>();
-	private Set<String> labels;
 	
 	public long solution() {
 		return solution(prefix, file);
@@ -37,7 +36,6 @@ public class Day16 {
 			insertIntervals(intFromFile);
 			i++;
 		}
-		labels = intervals.keySet();
 		i+=2;
 		while(i < input.size() && !input.get(i).equals("")) {
 			myTicket = parseTicket(input.get(i));
@@ -51,8 +49,9 @@ public class Day16 {
 			}
 			i++;
 		}
+		
 		for (int j = 0; j < validTickets.get(0).size(); j++) {
-			List<String> names = findLabelNameCandidates(j, labels);
+			List<String> names = findLabelNameCandidates(j, intervals.keySet());
 			labelNameCandidates.put(j, names);
 		}
 		
@@ -79,13 +78,9 @@ public class Day16 {
 	}
 	
 	public boolean valuesFound() {
-		for (Integer key : labelNameCandidates.keySet()) {
-			if (labelNameCandidates.get(key).size() != 1) {
-				return false;
-			}
-		}
-		return true;
+		return labelNameCandidates.keySet().stream().allMatch(k -> labelNameCandidates.get(k).size() == 1);
 	}
+	
 	
 	public long computeProduct2(String prefix) {
 		Long result = labelNameCandidates.keySet().stream()
@@ -96,44 +91,16 @@ public class Day16 {
 	}
 	
 	public List<String> findLabelNameCandidates(int index, Set<String> labels) {
-		List<String> candidates = new ArrayList<String>();
-		for (String label : labels) {
-			if (checkValidLabel(index, label)) {
-				candidates.add(label);
-			}
-		}
-		return candidates;
-	}
-	
-	public boolean checkValidLabel(int index, String label) {
-		for (List<Integer> ticket : validTickets) {
-			Integer val = ticket.get(index);
-			if (!isValueInInterval(val, intervals.get(label))) {
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	public boolean isValueInInterval(int val, List<Interval> intervalsList) {
-		for (Interval i : intervalsList) {
-			if (i.getStart() <= val && val <= i.getEnd()) {
-				return true;
-			}
-		}
-		return false;
+		return labels.stream().filter(label -> validTickets.stream()
+				.allMatch(ticket ->
+					intervals.get(label).stream().
+					anyMatch(i -> i.getStart() <= ticket.get(index) && ticket.get(index) <= i.getEnd())))
+				.collect(Collectors.toList());
 	}
 	
 	public boolean checkValidValue(int val) {
-		for (String key : intervals.keySet()) {
-			List<Interval> vals = intervals.get(key);
-			for (Interval i : vals) {
-				if (i.getStart() <= val && val <= i.getEnd()) {
-					return true;
-				}
-			}
-		}
-		return false;
+		return intervals.keySet().stream()
+		.anyMatch(k -> intervals.get(k).stream().anyMatch(i -> i.getStart() <= val && val <= i.getEnd()));
 	}
 	
 	public List<Interval> parseInterval(String s) {
