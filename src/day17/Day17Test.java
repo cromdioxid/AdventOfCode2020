@@ -13,13 +13,13 @@ public class Day17Test {
 	public void testInitialState() {
 		Day17 d = new Day17();
 		d.parseInput("inputs/day17/test1.txt");
-		Point p1 = new Point(2, 0, 0);
+		Point p1 = new Point(2, 0, 0, 0);
 		assertTrue(d.getActive(p1));
-		Point p2 = new Point(1, 0, 0);
+		Point p2 = new Point(1, 0, 0, 0);
 		assertFalse(d.getActive(p2));
-		Point p3 = new Point(0, 0, -1);
+		Point p3 = new Point(0, 0, -1, 0);
 		assertFalse(d.getActive(p3));
-		Point p4 = new Point(2,1,1);
+		Point p4 = new Point(2,1,1, 0);
 		assertFalse(d.getActive(p4));
 	}
 	
@@ -28,16 +28,16 @@ public class Day17Test {
 		Day17 d = new Day17();
 		HashSet<Point> ns = new HashSet<Point>();
 		d.parseInput(file);
-		Point p1 = new Point(1, 2, 0);
+		Point p1 = new Point(1, 2, 0, 0);
 		assertTrue(d.getActive(p1));
 		assertTrue(d.keepActive(p1, ns));
-		Point p2 = new Point(0, 1, 0);
+		Point p2 = new Point(0, 1, 0, 0);
 		assertTrue(d.getActive(p2));
 		assertFalse(d.keepActive(p2, ns));
-		Point p3 = new Point(0, 0, 0);
+		Point p3 = new Point(0, 0, 0, 0);
 		assertFalse(d.getActive(p3));
 		assertFalse(d.becomeActive(p3));
-		Point p4 = new Point(2, 2, -1);
+		Point p4 = new Point(2, 2, -1, 0);
 		assertFalse(d.getActive(p4));
 		assertTrue(d.becomeActive(p4));
 	}
@@ -46,7 +46,7 @@ public class Day17Test {
 	@Test
 	public void testSolution() {
 		Day17 d = new Day17();
-		assertEquals(112, d.solution(file));
+		assertEquals(848, d.solution(file));
 	}
 
 }

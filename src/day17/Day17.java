@@ -16,7 +16,7 @@ public class Day17 {
 			String line = input.get(i);
 			for (int j = 0; j < line.length(); j++) {
 				char c = line.charAt(j);
-				Point p = new Point(i, j, 0);
+				Point p = new Point(i, j, 0, 0);
 				if (c == '#') {
 					activePoints.add(p);
 				}
